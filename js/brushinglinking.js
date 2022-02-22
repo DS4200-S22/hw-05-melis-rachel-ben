@@ -127,7 +127,7 @@ d3.csv("data/iris.csv").then((data) => {
 
     // Add X axis
     svg2.append("g")
-          .attr("transform", `translate(0, ${height - margin.bottom})`)
+          .attr("transform", `translate(0,${height - margin.bottom})`)
           .call(d3.axisBottom(x2))
           .attr("font-size", '20px')
           .call((g) => g.append('text')

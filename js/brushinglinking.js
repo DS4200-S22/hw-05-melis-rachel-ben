@@ -122,7 +122,7 @@ d3.csv("data/iris.csv").then((data) => {
 
     // create X scale
     let x2 = d3.scaleLinear()
-                  .domain([0, maxX2])
+                  .domain([1000, maxX2 + 1000])
                   .range([margin.left, width - margin.right]);
 
     // Add X axis
@@ -143,7 +143,7 @@ d3.csv("data/iris.csv").then((data) => {
 
     // create Y scale
     let y2 = d3.scaleLinear()
-                  .domain([0, maxY2])
+                  .domain([1000, maxY2 + 1000])
                   .range([height - margin.bottom, margin.top]); 
 
     // Add Y axis

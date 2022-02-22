@@ -70,7 +70,7 @@ d3.csv("data/iris.csv").then((data) => {
                       .text(xKey1)
       );
 
-    // Finx max y 
+    // Find max y 
     let maxY1 = d3.max(data, (d) => { return d[yKey1]; });
 
     // Create Y scale

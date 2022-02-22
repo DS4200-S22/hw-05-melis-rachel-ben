@@ -160,16 +160,16 @@ d3.csv("data/iris.csv").then((data) => {
       );
 
     // add points
-    const myCircles2 = svg1.selectAll("circle")
+    const myCircles2 = svg2.selectAll("circle")
                               .data(data)
                               .enter()
-                                .append("circle")
-                                .attr("id", (d) => d.id)
-                                .attr("cx", (d) => x1(d[xKey2]))
-                                .attr("cy", (d) => y1(d[yKey2]))
-                                .attr("r", 8)
-                                .style("fill", (d) => color(d.Species))
-                                .style("opacity", 0.5);
+                                 .append("circle")
+                                 .attr("id", (d) => d.id)
+                                 .attr("cx", (d) => x1(d[xKey2]))
+                                 .attr("cy", (d) => y1(d[yKey2]))
+                                 .attr("r", 8)
+                                 .style("fill", (d) => color(d.Species))
+                                 .style("opacity", 0.5);
 
   }
 

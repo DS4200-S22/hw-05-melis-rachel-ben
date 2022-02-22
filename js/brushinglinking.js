@@ -15,7 +15,7 @@ let brush1;
 let myCircles1; 
 
 // TODO: append svg object to the body of the page to house Scatterplot2 (call it svg2)
-const svg2 = d3.select("#vis-holder2")
+const svg2 = d3.select("#vis-holder")
                 .append("svg")
                 .attr("width", width - margin.left - margin.right)
                 .attr("height", height - margin.top - margin.bottom)

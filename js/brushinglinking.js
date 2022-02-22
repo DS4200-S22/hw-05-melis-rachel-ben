@@ -19,7 +19,7 @@ const svg2 = d3.select("#vis-holder")
                 .append("svg")
                 .attr("width", width - margin.left - margin.right)
                 .attr("height", height - margin.top - margin.bottom)
-                .attr("viewBox", [0, 1000, width, height]);
+                .attr("viewBox", [1000, 1000, width, height]);
 
 //TODO: Initialize brush for Scatterplot2 and points. We will need these to be global.
 let brush2;
@@ -149,7 +149,7 @@ d3.csv("data/iris.csv").then((data) => {
     // Add Y axis
     svg2.append("g")
           .attr("transform", `translate(${margin.left}, 0)`) 
-          .call(d3.axisLeft(y1)) 
+          .call(d3.axisLeft(y2)) 
           .attr("font-size", '20px') 
           .call((g) => g.append("text")
                         .attr("x", 0)
@@ -160,7 +160,7 @@ d3.csv("data/iris.csv").then((data) => {
       );
 
     // add points
-    myCircles2 = svg1.selectAll("circle")
+    const myCircles2 = svg1.selectAll("circle")
                               .data(data)
                               .enter()
                                 .append("circle")

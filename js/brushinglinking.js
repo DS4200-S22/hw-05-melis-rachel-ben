@@ -157,7 +157,7 @@ d3.csv("data/iris.csv").then((data) => {
                         .attr("fill", "black")
                         .attr("text-anchor", "end")
                         .text(yKey2)
-      );
+        );
 
     // add points
     const myCircles2 = svg2.selectAll("circle")
@@ -170,7 +170,6 @@ d3.csv("data/iris.csv").then((data) => {
                                  .attr("r", 8)
                                  .style("fill", (d) => color(d.Species))
                                  .style("opacity", 0.5);
-
   }
 
   // TODO: Barchart with counts of different species *** FOR BRUSHING

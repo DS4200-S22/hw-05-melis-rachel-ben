@@ -26,9 +26,14 @@ let brush2;
 let myCircles2;
 
 //TODO: append svg object to the body of the page to house bar chart *** FOR BAR CHART
-
+const svg2 = d3
+    .select("#vis-holder")
+    .append("svg")
+    .attr("width", width - margin.left - margin.right )
+    .attr("height", height - margin.top - margin.bottom )
+    .attr("viewBox", [0,0, width,height])
 //TODO: Initialize bars. We will need these to be global. *** FOR BAR CHART
-
+let bars;
 
 // Define color scale
 const color = d3.scaleOrdinal()
@@ -104,7 +109,7 @@ d3.csv("data/iris.csv").then((data) => {
                               .style("opacity", 0.5);
 
     //TODO: Define a brush (call it brush1) *** FOR BRUSHING
-
+  
     //TODO: Add brush1 to svg1 *** FOR BRUSHING
     
   }

@@ -109,9 +109,10 @@ d3.csv("data/iris.csv").then((data) => {
                               .style("opacity", 0.5);
 
     //TODO: Define a brush (call it brush1) *** FOR BRUSHING
+    brush1 = d3.brush().extent([[0,0], [width, height]])
   
     //TODO: Add brush1 to svg1 *** FOR BRUSHING
-    
+    svg1.call(brush1.on("start", clear).on("brush", updateChart1))
   }
 
   // TODO: Scatterplot 2 (show Sepal width on x-axis and Petal width on y-axis)
@@ -175,42 +176,27 @@ d3.csv("data/iris.csv").then((data) => {
                                  .attr("r", 8)
                                  .style("fill", (d) => color(d.Species))
                                  .style("opacity", 0.5);
+                      
+    brush2 = d3.brush().extent([[0,0], [width, height]])
   }
 
   // TODO: Barchart with counts of different species *** FOR BRUSHING
   {
     // Bar chart code here
-      
-      // Set dimensions and margins for plots 
-    const width = 900; 
-    const height = 450; 
-    const margin = {left:50, right:50, bottom:50, top:50}; 
-    const yTooltipOffset = 15; 
-
-
-    // Adds an svg to hard-coded-bar div  
-    const svg = d3
-      .select("#hard-coded-bar")
-      .append("svg")
-      .attr("width", width-margin.left-margin.right)
-      .attr("height", height - margin.top - margin.bottom)
-      .attr("viewBox", [0, 0, width, height]);
 
     // Hardcoded barchart data
     const data1 = [
-      {name: 'setosa', score: 50},
-      {name: 'versicolor', score: 50},
-      {name: 'virginica', score: 50}
+      {Species: 'setosa', score: 50},
+      {Species: 'versicolor', score: 50},
+      {Species: 'virginica', score: 50}
     ];
 
-    /*
+    xKey3 = "Species";
+    yKey3 = "Count";
 
-      Axes
-
-    */ 
 
     // Find max y value to plot  
-    let maxY1 = d3.max(data1, function(d) { return d.score; });
+    let maxY1 = d3.max(data1, function(d) { return d[yKey3]; });
 
     // Create y scale   
     let yScale1 = d3.scaleLinear()
@@ -224,67 +210,30 @@ d3.csv("data/iris.csv").then((data) => {
                 .padding(0.1); 
 
     // Add y axis to webpage 
-    svg.append("g")
+    svg3.append("g")
       .attr("transform", `translate(${margin.left}, 0)`) 
       .call(d3.axisLeft(yScale1)) 
       .attr("font-size", '20px'); 
 
     // Add x axis to webpage  
-    svg.append("g")
+    svg3.append("g")
         .attr("transform", `translate(0,${height - margin.bottom})`) 
         .call(d3.axisBottom(xScale1) 
                 .tickFormat(i => data1[i].name))  
-        .attr("font-size", '20px'); 
-
-    /* 
-
-      Tooltip Set-up  
-
-    */
-
-    // Add div for tooltip to webpage
-    const tooltip1 = d3.select("body") 
-                    .append("div") 
-                    .attr('id', "tooltip1") 
-                    .style("opacity", 0) 
-                    .attr("class", "tooltip"); 
-
-    // Add values to tooltip on mouseover, make tooltip div opaque  
-    const mouseover1 = function(event, d) {
-      tooltip1.html("Name: " + d.name + "<br> Score: " + d.score + "<br>") 
-              .style("opacity", 1);  
-    }
-
-    // Position tooltip to follow mouse 
-    const mousemove1 = function(event, d) {
-      tooltip1.style("left", (event.pageX)+"px") 
-              .style("top", (event.pageY + yTooltipOffset)+"px"); 
-    }
-
-    // Return tooltip to transparant when mouse leaves
-    const mouseleave1 = function(event, d) { 
-      tooltip1.style("opacity", 0); 
-    }
-
-    /* 
-
-      Bars 
-
-    */
+        .attr("font-size", '20px')
+        ; 
 
     // Add bars to the webpage, bind events needed for tooltips 
-    svg.selectAll(".bar") 
+    svg3.selectAll(".bar") 
       .data(data1) 
       .enter()  
       .append("rect") 
         .attr("class", "bar") 
         .attr("x", (d,i) => xScale1(i)) 
-        .attr("y", (d) => yScale1(d.score)) 
+        .attr("y", (d) => yScale1(d.Count)) 
         .attr("height", (d) => (height - margin.bottom) - yScale1(d.score)) 
-        .attr("width", xScale1.bandwidth()) 
-        .on("mouseover", mouseover1) 
-        .on("mousemove", mousemove1)
-        .on("mouseleave", mouseleave1);
+        .attr("width", xScale1.bandwidth()
+        );
   }
 
   // Brushing Code---------------------------------------------------------------------------------------------
@@ -294,6 +243,7 @@ d3.csv("data/iris.csv").then((data) => {
       svg1.call(brush1.move, null);
       
       //TODO: add code to clear existing brush from svg2
+      svg2.call(brush2.move, null)
   }
 
   // Call when Scatterplot1 is brushed 

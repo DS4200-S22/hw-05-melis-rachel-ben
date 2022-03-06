@@ -26,7 +26,7 @@ let brush2;
 let myCircles2;
 
 //TODO: append svg object to the body of the page to house bar chart *** FOR BAR CHART
-const svg2 = d3
+const svg3 = d3
     .select("#vis-holder")
     .append("svg")
     .attr("width", width - margin.left - margin.right )

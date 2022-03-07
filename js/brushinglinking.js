@@ -201,7 +201,7 @@ d3.csv("data/iris.csv").then((data) => {
     let maxY1 = d3.max(data1, function(d) { return d[yKey3]; });
 
     // Create y scale   
-    y3 = d3.scaleLinear()
+    let y3 = d3.scaleLinear()
                 .domain([0,maxY1])
                 .range([height-margin.bottom,margin.top]); 
 
@@ -212,7 +212,7 @@ d3.csv("data/iris.csv").then((data) => {
                 .padding(0.1); 
 
     // Add y axis to webpage 
-    y3 = svg3.append("g")
+    svg3.append("g")
       .attr("transform", `translate(${margin.left}, 0)`) 
       .call(d3.axisLeft(y3)) 
       .attr("font-size", '20px')
@@ -240,7 +240,7 @@ d3.csv("data/iris.csv").then((data) => {
        
 
     // Add bars to the webpage, bind events needed for tooltips 
-    const myBar = svg3.selectAll("bar")
+    svg3.selectAll("bar")
                                   .data(data1) 
                                   .enter()  
                                   .append("rect") 
@@ -253,6 +253,8 @@ d3.csv("data/iris.csv").then((data) => {
                                     .style("opacity", 0.5);
   }
 
+
+  
   // Brushing Code---------------------------------------------------------------------------------------------
     
   // Call to removes existing brushes 
@@ -314,4 +316,5 @@ d3.csv("data/iris.csv").then((data) => {
         y1 = brush_coords[1][1];
       return x0 <= cx && cx <= x1 && y0 <= cy && cy <= y1; // This return TRUE or FALSE depending on if the points is in the selected area
     }
+
 });

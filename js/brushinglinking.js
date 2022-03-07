@@ -178,6 +178,8 @@ d3.csv("data/iris.csv").then((data) => {
                                  .style("opacity", 0.5);
                       
     brush2 = d3.brush().extent([[0,0], [width, height]])
+
+    svg2.call(brush2.on("start", clear).on("brush", updateChart2));
   }
 
   // TODO: Barchart with counts of different species *** FOR BRUSHING
@@ -199,12 +201,12 @@ d3.csv("data/iris.csv").then((data) => {
     let maxY1 = d3.max(data1, function(d) { return d[yKey3]; });
 
     // Create y scale   
-    let yScale1 = d3.scaleLinear()
+    let y3 = d3.scaleLinear()
                 .domain([0,maxY1])
                 .range([height-margin.bottom,margin.top]); 
 
     // Create x scale
-    let xScale1 = d3.scaleBand()
+    let x3 = d3.scaleBand()
                 .domain(d3.range(data1.length))
                 .range([margin.left, width - margin.right])
                 .padding(0.1); 
@@ -212,28 +214,27 @@ d3.csv("data/iris.csv").then((data) => {
     // Add y axis to webpage 
     svg3.append("g")
       .attr("transform", `translate(${margin.left}, 0)`) 
-      .call(d3.axisLeft(yScale1)) 
+      .call(d3.axisLeft(y3)) 
       .attr("font-size", '20px'); 
 
     // Add x axis to webpage  
     svg3.append("g")
         .attr("transform", `translate(0,${height - margin.bottom})`) 
-        .call(d3.axisBottom(xScale1) 
+        .call(d3.axisBottom(x3) 
                 .tickFormat(i => data1[i].name))  
         .attr("font-size", '20px')
         ; 
 
     // Add bars to the webpage, bind events needed for tooltips 
-    myBar = svg3.selectAll(".bar") 
-      .data(data1) 
-      .enter()  
-      .append("rect") 
-        .attr("class", "bar") 
-        .attr("x", (d,i) => xScale1(i)) 
-        .attr("y", (d) => yScale1(d.Count)) 
-        .attr("height", (d) => (height - margin.bottom) - yScale1(d.score)) 
-        .attr("width", xScale1.bandwidth()
-        );
+    const myBar = svg3.selectAll("bar")
+                                  .data(data1) 
+                                  .enter()  
+                                  .append("rect") 
+                                    .attr("class", "bar") 
+                                    .attr("x", (d,i) => x3(i)) 
+                                    .attr("y", (d) => y3(d.Count)) 
+                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.score)) 
+                                    .attr("width", xScale1.bandwidth());
   }
 
   // Brushing Code---------------------------------------------------------------------------------------------

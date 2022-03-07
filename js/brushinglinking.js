@@ -233,8 +233,10 @@ d3.csv("data/iris.csv").then((data) => {
                                     .attr("class", "bar") 
                                     .attr("x", (d,i) => x3(i)) 
                                     .attr("y", (d) => y3(d.Count)) 
-                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.score)) 
-                                    .attr("width", xScale1.bandwidth());
+                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.Count)) 
+                                    .attr("width", x3.bandwidth())
+                                    .style("fill", (d) => color(d.Species))
+                                    .style("opacity", 0.5);
   }
 
   // Brushing Code---------------------------------------------------------------------------------------------

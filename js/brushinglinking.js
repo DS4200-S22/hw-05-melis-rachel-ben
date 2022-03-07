@@ -201,7 +201,7 @@ d3.csv("data/iris.csv").then((data) => {
     let maxY1 = d3.max(data1, function(d) { return d[yKey3]; });
 
     // Create y scale   
-    let y3 = d3.scaleLinear()
+    y3 = d3.scaleLinear()
                 .domain([0,maxY1])
                 .range([height-margin.bottom,margin.top]); 
 
@@ -212,18 +212,32 @@ d3.csv("data/iris.csv").then((data) => {
                 .padding(0.1); 
 
     // Add y axis to webpage 
-    svg3.append("g")
+    y3 = svg3.append("g")
       .attr("transform", `translate(${margin.left}, 0)`) 
       .call(d3.axisLeft(y3)) 
-      .attr("font-size", '20px'); 
+      .attr("font-size", '20px')
+      .call((g) => g.append("text")
+                    .attr("x", 0)
+                    .attr("y", margin.top)
+                    .attr("fill", "black")
+                    .attr("text-anchor", "end")
+                    .text(yKey3)
+        ); 
 
     // Add x axis to webpage  
     svg3.append("g")
-        .attr("transform", `translate(0,${height - margin.bottom})`) 
-        .call(d3.axisBottom(x3) 
-                .tickFormat(i => data1[i].name))  
-        .attr("font-size", '20px')
-        ; 
+      .attr("transform", `translate(0,${height - margin.bottom})`) 
+      .call(d3.axisBottom(x3) 
+              .tickFormat(i => data1[i].name))  
+      .attr("font-size", '20px')
+      .call((g) => g.append("text")
+                    .attr("x", width - margin.right)
+                    .attr("y", margin.bottom -4)
+                    .attr("fill", "black")
+                    .attr("text-anchor", "end")
+                    .text(xKey3)
+        );
+       
 
     // Add bars to the webpage, bind events needed for tooltips 
     const myBar = svg3.selectAll("bar")
@@ -233,9 +247,9 @@ d3.csv("data/iris.csv").then((data) => {
                                     .attr("class", "bar") 
                                     .attr("x", (d,i) => x3(i)) 
                                     .attr("y", (d) => y3(d.Score)) 
-                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.Score)) 
+                                    .attr("height", (d) => (height - margin.bottom) - y3(d.Score)) 
                                     .attr("width", x3.bandwidth())
-                                    .style("fill", (d) => color(d.Species))
+                                    .style("fill", (d) => color(d[xKey3]))
                                     .style("opacity", 0.5);
   }
 
@@ -256,12 +270,12 @@ d3.csv("data/iris.csv").then((data) => {
       let coordinates = d3.brushSelection(this);
   
       //TODO: Give bold outline to all points within the brush region in Scatterplot1
-      myCircles1.classed("selected", function(d) {
-        return isBrushed(coordinates, x1(d.Sepal_Length), y1(d.Petal_Length))
+      myCircles1.classed("brushed", function(d) {
+        return isBrushed(coordinates, x1(d[xKey1]), y1(d[yKey1]))
       })
       //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
-      myCircles2.classed("selected", function(d){
-        return isBrushed(coordinates, x1(d.Sepal_Width), y1(d.Petal_Width))
+      myCircles2.classed("brushed", function(d){
+        return isBrushed(coordinates, x1(d[xKey1]), y1(d[yKey1]))
       })
   }
 
@@ -273,7 +287,7 @@ d3.csv("data/iris.csv").then((data) => {
     //TODO: Start an empty set that you can store names of selected species in 
     let selectedSpecies = new Set();
     //TODO: Give bold outline to all points within the brush region in Scatterplot2 & collected names of brushed species
-    myCircles2.classed("selected", function(d){
+    myCircles2.classed("brushed", function(d){
       isSelected = isBrushed(coordinates, x2(d[xKey2]), y2(d[yKey2]));
       if (isSelected) {
         selectedSpecies.add(d[xKey3])

@@ -33,7 +33,7 @@ const svg3 = d3
     .attr("height", height - margin.top - margin.bottom )
     .attr("viewBox", [0,0, width,height])
 //TODO: Initialize bars. We will need these to be global. *** FOR BAR CHART
-let bars;
+let myBar;
 
 // Define color scale
 const color = d3.scaleOrdinal()

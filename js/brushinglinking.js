@@ -188,13 +188,13 @@ d3.csv("data/iris.csv").then((data) => {
 
     // Hardcoded barchart data
     const data1 = [
-      {Species: 'setosa', score: 50},
-      {Species: 'versicolor', score: 50},
-      {Species: 'virginica', score: 50}
+      {Species: 'setosa', Score: 50},
+      {Species: 'versicolor', Score: 50},
+      {Species: 'virginica', Score: 50}
     ];
 
     xKey3 = "Species";
-    yKey3 = "Count";
+    yKey3 = "Score";
 
 
     // Find max y value to plot  
@@ -232,8 +232,8 @@ d3.csv("data/iris.csv").then((data) => {
                                   .append("rect") 
                                     .attr("class", "bar") 
                                     .attr("x", (d,i) => x3(i)) 
-                                    .attr("y", (d) => y3(d.Count)) 
-                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.Count)) 
+                                    .attr("y", (d) => y3(d.Score)) 
+                                    .attr("height", (d) => (height - margin.bottom) - yScale1(d.Score)) 
                                     .attr("width", x3.bandwidth())
                                     .style("fill", (d) => color(d.Species))
                                     .style("opacity", 0.5);
@@ -261,7 +261,7 @@ d3.csv("data/iris.csv").then((data) => {
       })
       //TODO: Give bold outline to all points in Scatterplot2 corresponding to points within the brush region in Scatterplot1
       myCircles2.classed("selected", function(d){
-        return isBrushed(coordinates, x1(d.Sepal_Length), y1(d.Petal_Length))
+        return isBrushed(coordinates, x1(d.Sepal_Width), y1(d.Petal_Width))
       })
   }
 

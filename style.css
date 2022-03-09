@@ -4,8 +4,12 @@ body {
 }
 
 
-.selectedSpecies {
+.brushed {
   opacity: 1 !important;
   stroke: black;
   stroke-width: 5px;
+}
+
+.non-brushed {
+  stroke: "transparent";
 }

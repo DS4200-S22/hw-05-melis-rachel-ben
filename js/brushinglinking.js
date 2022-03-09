@@ -228,7 +228,7 @@ d3.csv("data/iris.csv").then((data) => {
     svg3.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`) 
       .call(d3.axisBottom(x3) 
-              .tickFormat(i => data1[i].name))  
+              .tickFormat(i => data1[i].Species))  
       .attr("font-size", '20px')
       .call((g) => g.append("text")
                     .attr("x", width - margin.right)
